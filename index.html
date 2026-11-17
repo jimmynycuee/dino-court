@@ -158,7 +158,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
 
 /* 4 — 簽收 */
 .sign{position:relative;height:clamp(110px,20vh,160px);margin-top:10px;border-bottom:1px solid var(--ink)}
-.sign canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.sign canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pinch-zoom;cursor:crosshair}
 .sign .ph{position:absolute;left:0;right:0;top:42%;text-align:center;font-size:15px;color:var(--mute);opacity:.6;pointer-events:none;transition:opacity .2s}
 .sign.inked .ph{opacity:0}
 .sign .x{position:absolute;left:0;bottom:8px;font-family:var(--mono);color:var(--mute);pointer-events:none}
@@ -441,10 +441,11 @@ function rub(e){
 }
 addEventListener('pointermove',rub,{passive:true});
 /* LINE 等內建瀏覽器不一定理會 touch-action:none，直接攔下觸控捲動 */
-const holdStill=(el,evs)=>evs.forEach(ev=>el.addEventListener(ev,e=>{if(e.cancelable)e.preventDefault()},{passive:false}));
+/* 只擋單指 兩指留給瀏覽器縮放 */
+const holdStill=(el,evs)=>evs.forEach(ev=>el.addEventListener(ev,e=>{if(e.cancelable&&e.touches.length===1)e.preventDefault()},{passive:false}));
 [$('#pad'),$('#seal')].forEach(el=>holdStill(el,['touchstart','touchmove']));
 redacts.forEach(el=>holdStill(el,['touchmove']));
-document.addEventListener('touchmove',e=>{if((scene===1||scene===4)&&e.cancelable)e.preventDefault()},{passive:false});
+document.addEventListener('touchmove',e=>{if(scene===1&&e.cancelable&&e.touches.length===1)e.preventDefault()},{passive:false});
 $('#toCourt').addEventListener('click',()=>goto(2));
 
 /* ── 2 開庭：審判長手短，請代敲法槌 ── */
