@@ -164,7 +164,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
 <div class="app" id="app">
   <header class="bar">
     <span>恐龍最高法院</span>
-    <span class="bar-r"><button class="sound" id="sound" aria-pressed="false">聲音 關</button><span class="mono" id="step">01 / 04</span></span>
+    <span class="bar-r"><button class="sound" id="sound" aria-pressed="true">聲音 開</button><span class="mono" id="step">01 / 04</span></span>
   </header>
   <p class="nojs" id="nojs" role="alert">互動還沒啟動。請用瀏覽器直接打開這個網址。</p>
   <main>
@@ -172,7 +172,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
     <section class="scene active" data-step="1" aria-label="送達">
       <p class="kicker">恐字第 018 號 · 以柔 親收</p>
       <h1 class="display">你被告了。</h1>
-      <p class="lede">原告是一隻恐龍。<br>牠說事情很嚴重，但不肯寫在信封上。</p>
+      <p class="lede">原告是 Jimmy。<br>說事情很嚴重，但不肯寫在信封上。</p>
       <div class="seal-zone">
         <button class="seal" id="seal" aria-label="按住印章，簽收傳票">
           <svg viewBox="0 0 148 148" aria-hidden="true"><circle class="track" cx="74" cy="74" r="70"/><circle class="arc" id="arc" cx="74" cy="74" r="70"/></svg>
@@ -186,9 +186,9 @@ svg.dino,svg.cat{display:block;overflow:visible}
 
     <section class="scene" data-step="2" aria-label="起訴書">
       <p class="kicker">起訴書</p>
-      <h1 class="display sm">恐龍　訴　以柔</h1>
+      <h1 class="display sm">Jimmy　訴　以柔</h1>
       <dl class="doc">
-        <div><dt>原告</dt><dd>一隻恐龍（兼任本案法官）</dd></div>
+        <div><dt>原告</dt><dd>Jimmy</dd></div>
         <div><dt>被告</dt><dd>以柔</dd></div>
         <div><dt>案由</dt><dd><span class="redact">讓喬治流落街頭</span></dd></div>
         <div><dt>事實</dt><dd><span class="redact">喬治至今無人收留，</span><br><span class="redact">被告知情，而且沒有要管。</span></dd></div>
@@ -208,7 +208,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
       <p class="kicker">開庭</p>
       <div class="stage">
         <div data-dino id="judge"></div>
-        <div class="bench"><span class="plate">法官兼原告</span></div>
+        <div class="bench"><span class="plate">審判長</span></div>
         <button class="gavel" id="gavel" aria-label="代替法官敲法槌">
           <svg viewBox="0 0 58 80" aria-hidden="true"><rect x="25" y="26" width="8" height="52" rx="4" fill="var(--ink)"/><rect x="3" y="6" width="52" height="26" rx="7" fill="var(--ink)"/><rect x="11" y="6" width="2.5" height="26" fill="var(--paper)"/><rect x="44.5" y="6" width="2.5" height="26" fill="var(--paper)"/></svg>
         </button>
@@ -316,7 +316,7 @@ addEventListener('pointermove',e=>look(e.clientX,e.clientY),{passive:true});
 addEventListener('pointerdown',e=>look(e.clientX,e.clientY),{passive:true});
 
 /* ── 聲音與震動 ── */
-let soundOn=false,ctx=null;
+let soundOn=true,ctx=null;
 function tone(kind){
   if(navigator.vibrate)try{navigator.vibrate(kind==='gavel'?[18,30,40]:8)}catch(e){}
   if(!soundOn)return;
@@ -417,7 +417,7 @@ $('#appeal').addEventListener('click',()=>{
 });
 $('#yes').addEventListener('click',()=>{goto(4);tone('done')});
 $('#later').addEventListener('click',()=>goto(5));
-$('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(CONFIG.reply);toast('複製好了，貼給那隻恐龍。')}catch(e){toast(CONFIG.reply)}});
+$('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(CONFIG.reply);toast('複製好了，貼給 Jimmy。')}catch(e){toast(CONFIG.reply)}});
 $('#again').addEventListener('click',()=>location.reload());$('#again2').addEventListener('click',()=>location.reload());
 
 /* ── 4 簽名，簽完印成判決書 ── */
