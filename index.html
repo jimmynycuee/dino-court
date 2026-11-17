@@ -4,13 +4,11 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#f4f2ec" />
-<meta name="description" content="以柔 親收 請本人簽收" />
-<title>恐龍地方法院 你有一張傳票</title>
+<title>恐龍地方法院</title>
 <link rel="canonical" href="https://jimmynycuee.github.io/dino-court/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="恐龍地方法院" />
-<meta property="og:title" content="你被告了" />
-<meta property="og:description" content="以柔 親收 拒收無效" />
+<meta property="og:title" content="恐龍地方法院" />
 <meta property="og:url" content="https://jimmynycuee.github.io/dino-court/" />
 <meta property="og:image" content="https://jimmynycuee.github.io/dino-court/og.png?v=3" />
 <meta property="og:image:width" content="1200" />
@@ -32,7 +30,7 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html,body{margin:0;background:var(--paper)}
+html,body{margin:0;background:var(--paper);overscroll-behavior:none}
 body{color:var(--ink);font-family:var(--serif);font-weight:500;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--seal);outline-offset:4px}
@@ -190,7 +188,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
     <section class="scene active" data-step="1" aria-label="傳票送達">
       <p class="kicker">以柔 親收</p>
       <h1 class="display">你被告了</h1>
-      <p class="lede">Jimmy 告你<br>事情很嚴重 但不肯寫在信封上</p>
+      <p class="lede">事情很嚴重<br>但不肯寫在信封上</p>
       <div class="seal-zone">
         <button class="seal" id="seal" aria-label="按住印章兩秒簽收傳票">
           <svg viewBox="0 0 148 148" aria-hidden="true"><circle class="track" cx="74" cy="74" r="70"/><circle class="arc" id="arc" cx="74" cy="74" r="70"/></svg>
@@ -243,7 +241,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
     <section class="scene" data-step="4" aria-label="判決">
       <p class="kicker">判決</p>
       <div class="verdict-wrap" id="verdictWrap">
-        <h1 class="verdict">被告以柔<br>本週末陪 Jimmy<br>去<em>十八尖山</em>跑步一次</h1>
+        <h1 class="verdict">被告以柔<br>本週末和 Jimmy<br>一起去<em>十八尖山</em>跑步</h1>
       </div>
       <ol class="clauses">
         <li><div>時間由被告選
@@ -270,7 +268,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
       <h1 class="display sm" id="doneTitle">請被告簽收</h1>
       <p class="lede" id="doneLede">簽了才算數 字醜不影響效力</p>
       <div class="sign" id="signBox"><canvas id="pad" aria-label="簽名欄"></canvas><span class="ph" aria-hidden="true">在這裡簽名</span><span class="x" aria-hidden="true">×</span><button class="link" id="clear">重簽</button></div>
-      <img class="ticket" id="ticket" alt="恐龍地方法院判決書 本週末到十八尖山跑步" hidden />
+      <img class="ticket" id="ticket" alt="恐龍地方法院判決書 本週末和 Jimmy 一起去十八尖山跑步" hidden />
       <div class="actions">
         <button class="btn" id="issue">領取判決書</button>
         <div class="row2" id="after" hidden>
@@ -442,6 +440,10 @@ function rub(e){
   if(segs.filter(s=>s.classList.contains('off')).length/segs.length>.6)reveal(r);
 }
 addEventListener('pointermove',rub,{passive:true});
+/* LINE 等內建瀏覽器不一定理會 touch-action:none，直接攔下觸控捲動 */
+const holdStill=(el,evs)=>evs.forEach(ev=>el.addEventListener(ev,e=>{if(e.cancelable)e.preventDefault()},{passive:false}));
+[$('#pad'),$('#seal')].forEach(el=>holdStill(el,['touchstart','touchmove']));
+redacts.forEach(el=>holdStill(el,['touchmove']));
 $('#toCourt').addEventListener('click',()=>goto(2));
 
 /* ── 2 開庭：審判長手短，請代敲法槌 ── */
@@ -507,7 +509,7 @@ let blob=null,blobUrl='';
 async function buildTicket(){
   const W=1200,H=1600,M=96,cv=document.createElement('canvas');cv.width=W;cv.height=H;const c=cv.getContext('2d');
   const serif='"Noto Serif TC","Songti TC","PingFang TC",serif',mono='ui-monospace,"SF Mono",Menlo,monospace';
-  const lines=[`被告${CONFIG.name}`,`本週末陪 ${CONFIG.plaintiff}`,`去${CONFIG.place}跑步一次`];
+  const lines=[`被告${CONFIG.name}`,`本週末和 ${CONFIG.plaintiff}`,`一起去${CONFIG.place}跑步`];
   const rows=[['被告',CONFIG.name],['地點',CONFIG.place],['時間',slot||'另外喬'],['備註','跑不動的路段 可以用散步代替']];
   const signedIt=strokes.length>0;
   try{await Promise.all([document.fonts.load(`900 92px "Noto Serif TC"`,lines.join('')+'恐龍地方法院判決書'),document.fonts.load(`500 34px "Noto Serif TC"`,rows.flat().join('')+'週六日早下午五點後另外喬被告簽收拒簽但人會到請把這張傳回去當作報到')])}catch(e){}
