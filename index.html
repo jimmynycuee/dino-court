@@ -4,15 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#f4f2ec" />
-<meta name="description" content="115年度自字第18號。請本人簽收。" />
-<title>恐龍地方法院｜你有一張傳票</title>
+<meta name="description" content="以柔 親收 請本人簽收" />
+<title>恐龍地方法院 你有一張傳票</title>
 <link rel="canonical" href="https://jimmynycuee.github.io/dino-court/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="恐龍地方法院" />
-<meta property="og:title" content="你被告了。" />
-<meta property="og:description" content="115年度自字第18號，以柔 親收。拒收無效。" />
+<meta property="og:title" content="你被告了" />
+<meta property="og:description" content="以柔 親收 拒收無效" />
 <meta property="og:url" content="https://jimmynycuee.github.io/dino-court/" />
-<meta property="og:image" content="https://jimmynycuee.github.io/dino-court/og.png?v=2" />
+<meta property="og:image" content="https://jimmynycuee.github.io/dino-court/og.png?v=3" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -26,8 +26,9 @@
   --serif:"Noto Serif TC","Songti TC","PingFang TC",serif;
   --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
   --ease:cubic-bezier(.2,.8,.2,1);
-  --gap:clamp(8px,2.2vh,22px);
-  --stage:clamp(140px,26vh,226px);
+  --gap:clamp(10px,2.2vh,20px);
+  --block:clamp(22px,4.5vh,40px);
+  --stage:clamp(150px,27vh,226px);
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
@@ -36,25 +37,24 @@ body{color:var(--ink);font-family:var(--serif);font-weight:500;-webkit-font-smoo
 button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--seal);outline-offset:4px}
 
-.app{position:relative;max-width:430px;height:100vh;height:100svh;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;overflow:hidden}
-.bar{flex:none;display:flex;justify-content:space-between;align-items:center;height:52px;margin-top:env(safe-area-inset-top);font-size:13px;letter-spacing:.32em}
+.app{position:relative;max-width:430px;min-height:100vh;min-height:100svh;margin:0 auto;padding:0 24px calc(20px + env(safe-area-inset-bottom));overflow-x:hidden}
+.bar{display:flex;justify-content:space-between;align-items:center;height:52px;margin-top:env(safe-area-inset-top);font-size:13px;letter-spacing:.32em}
 .bar-r{display:flex;align-items:center;gap:16px}
 .mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mute)}
 .sound{border:0;background:none;padding:8px 0;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--mute)}
 .sound[aria-pressed="true"]{color:var(--ink)}
 
-main{flex:1;min-height:0;display:flex;flex-direction:column}
-.scene{display:none;flex:1;min-height:0;flex-direction:column;position:relative;padding-bottom:calc(14px + env(safe-area-inset-bottom));animation:in .7s var(--ease) both}
+.scene{display:none;flex-direction:column;position:relative;animation:in .7s var(--ease) both}
 .scene.active{display:flex}
 @keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
-.kicker{flex:none;display:flex;align-items:center;gap:10px;margin:clamp(6px,3vh,36px) 0 var(--gap);font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--mute)}
+.kicker{display:flex;align-items:center;gap:10px;margin:clamp(14px,5vh,48px) 0 var(--gap);font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--mute)}
 .kicker::before{content:"";width:6px;height:6px;background:var(--seal);border-radius:50%}
-.display{margin:0;font-weight:900;font-size:clamp(40px,min(14vw,8vh),60px);line-height:1.18;letter-spacing:.02em}
-.display.sm{font-size:clamp(30px,min(10vw,5.6vh),42px);white-space:nowrap}
+.display{margin:0;font-weight:900;font-size:clamp(44px,min(14vw,8.5vh),60px);line-height:1.18;letter-spacing:.02em}
+.display.sm{font-size:clamp(30px,min(10vw,5.8vh),42px);white-space:nowrap}
 .lede{margin:var(--gap) 0 0;font-size:16px;line-height:1.85;color:#4c4a44}
-.fine{margin:10px 0 0;font-size:12px;color:var(--mute);text-align:center;letter-spacing:.04em}
-.actions{margin-top:auto;padding-top:var(--gap);display:grid;gap:10px}
+.fine{margin:0;font-size:12px;color:var(--mute);text-align:center;letter-spacing:.04em}
+.actions{margin-top:var(--block);display:grid;gap:10px}
 .row2{display:grid;grid-template-columns:1.3fr 1fr;gap:10px}
 .btn{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:54px;padding:0 18px;border:1px solid var(--ink);border-radius:3px;background:var(--ink);color:var(--paper);font-size:17px;font-weight:900;letter-spacing:.16em;transition:opacity .3s,transform .15s}
 .btn::after{content:"→";font-family:var(--mono);font-weight:400;letter-spacing:0}
@@ -63,13 +63,14 @@ main{flex:1;min-height:0;display:flex;flex-direction:column}
 .btn.ghost{background:none;color:var(--ink)}
 .link{border:0;background:none;padding:6px 10px;font-size:13px;color:var(--mute);text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--rule);justify-self:center}
 
-/* 要對方動手的地方：一律用這個 */
+/* 要對方動手的地方 */
 .do{display:inline-flex;align-items:center;gap:9px;align-self:flex-start;margin:0;padding:8px 14px 8px 12px;border-radius:999px;background:rgba(211,69,44,.1);color:var(--seal);font-size:14px;font-weight:900;letter-spacing:.06em;line-height:1.45}
 .do::before{content:"";flex:none;width:7px;height:7px;border-radius:50%;background:var(--seal);animation:pulse 1.3s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.25;transform:scale(.6)}}
 .do.ok{background:rgba(22,22,20,.06);color:var(--ink)}
 .do.ok::before{background:var(--ink);animation:none}
 .do:empty{visibility:hidden}
+.quip{margin:0;font-size:14px;line-height:1.7;color:#4c4a44;white-space:pre-line;min-height:1.7em}
 
 /* character */
 svg.dino,svg.cat{display:block;overflow:visible}
@@ -84,8 +85,8 @@ svg.dino,svg.cat{display:block;overflow:visible}
 .flip{transform:scaleX(-1)}
 
 /* 0 — 送達 */
-.seal-zone{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
-.seal{position:relative;width:clamp(116px,18vh,148px);aspect-ratio:1;border:0;background:none;padding:0;touch-action:none;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
+.seal-zone{display:flex;flex-direction:column;align-items:center;gap:16px;margin:clamp(30px,8vh,72px) 0 clamp(24px,6vh,56px)}
+.seal{position:relative;width:clamp(120px,18vh,148px);aspect-ratio:1;border:0;background:none;padding:0;touch-action:none;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
 .seal svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
 .seal .track{fill:none;stroke:var(--rule);stroke-width:1.5}
 .seal .arc{fill:none;stroke:var(--seal);stroke-width:2.5;stroke-linecap:round;transition:stroke-dashoffset .35s}
@@ -95,11 +96,11 @@ svg.dino,svg.cat{display:block;overflow:visible}
 .seal.done .seal-face{animation:stamp .5s var(--ease)}
 @keyframes stamp{0%{transform:rotate(-7deg) scale(.93)}40%{transform:rotate(0) scale(1.18)}100%{transform:rotate(-7deg) scale(1)}}
 .seal-zone .do{align-self:center}
-.peek-edge{position:absolute;right:-112px;bottom:max(40px,9%);width:clamp(140px,22vh,180px);transform:rotate(-16deg);pointer-events:none}
+.peek-edge{position:absolute;right:-112px;top:calc(100% - 210px);width:160px;transform:rotate(-16deg);pointer-events:none}
 
-/* 1 — 自訴狀 */
+/* 1 — 起訴狀 */
 .doc{margin:var(--gap) 0 0;border-top:1px solid var(--ink)}
-.doc>div{display:grid;grid-template-columns:62px 1fr;padding:clamp(6px,1.3vh,12px) 0;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.75}
+.doc>div{display:grid;grid-template-columns:62px 1fr;padding:clamp(7px,1.4vh,12px) 0;border-bottom:1px solid var(--rule);font-size:16px;line-height:1.75}
 .doc dt{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--mute);padding-top:5px}
 .doc dd{margin:0}
 .doc .later{opacity:0;transition:opacity .6s var(--ease)}
@@ -109,39 +110,37 @@ svg.dino,svg.cat{display:block;overflow:visible}
 .redact .inkbar i{flex:1;background:var(--ink);transition:opacity .35s,transform .35s}
 .redact .inkbar i.off{opacity:0;transform:scaleY(.2)}
 .redact[data-done]{cursor:default}
-.watch{flex:none;position:relative;display:flex;align-items:center;height:clamp(56px,9vh,74px);margin-top:var(--gap);overflow:hidden;border-bottom:1px solid var(--ink)}
+.watch{position:relative;display:flex;align-items:center;height:clamp(58px,9vh,74px);margin-top:var(--gap);overflow:hidden;border-bottom:1px solid var(--ink)}
 .watch .flip{position:absolute;right:6px;top:18%;width:clamp(110px,17vh,150px)}
 
-/* 2 — 審判期日 */
-.stage{flex:none;position:relative;height:var(--stage)}
+/* 2 — 開庭 */
+.stage{position:relative;height:var(--stage)}
 .stage .dino{position:absolute;left:0;bottom:calc(var(--stage)*.16);width:calc(var(--stage)*.74)}
 .bench{position:absolute;left:-24px;right:-24px;bottom:0;height:calc(var(--stage)*.23);background:var(--paper);border-top:1.5px solid var(--ink)}
 .plate{position:absolute;left:48px;top:22%;padding:3px 10px;border:1px solid var(--ink);font-size:11px;letter-spacing:.24em;text-indent:.24em}
-.mic{position:absolute;right:64px;bottom:calc(var(--stage)*.23 - 1px);width:50px;height:72px;border:0;background:none;padding:0;transform-origin:50% 100%;z-index:2}
-.mic svg{width:100%;height:100%;display:block;overflow:visible}
-.mic::after{content:"";position:absolute;left:50%;top:22%;width:64px;height:64px;margin:-32px 0 0 -32px;border:1.5px solid var(--seal);border-radius:50%;opacity:0;pointer-events:none}
-.mic.ready::after{animation:ring 1.4s ease-out infinite}
-@keyframes ring{from{opacity:.9;transform:scale(.55)}to{opacity:0;transform:scale(1.35)}}
-.mic.tap{animation:tap .32s var(--ease)}
-@keyframes tap{30%{transform:scale(1.06,.82)}65%{transform:scale(.97,1.06)}}
+.gavel{position:absolute;right:64px;bottom:calc(var(--stage)*.23 - 1px);width:54px;height:76px;border:0;background:none;padding:0;transform-origin:50% 94%;transform:rotate(-16deg);z-index:2}
+.gavel svg{width:100%;height:100%;display:block}
+.gavel.hit{animation:hit .4s cubic-bezier(.5,0,.9,.4)}
+@keyframes hit{0%{transform:rotate(-16deg)}18%{transform:rotate(-34deg)}52%{transform:rotate(80deg)}62%{transform:rotate(72deg)}100%{transform:rotate(-16deg)}}
+.gavel.ready{animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{50%{transform:rotate(-26deg)}}
 .knocks{position:absolute;right:0;bottom:calc(var(--stage)*.23 + 8px);display:flex;gap:7px;z-index:1}
 .knocks i{width:8px;height:8px;border:1px solid var(--ink);border-radius:50%;transition:background .2s}
 .knocks i.on{background:var(--seal);border-color:var(--seal)}
 .app.shake{animation:shake .28s}
 @keyframes shake{20%{transform:translateY(5px)}50%{transform:translateY(-3px)}80%{transform:translateY(2px)}}
-.say{flex:none;margin:var(--gap) 0 10px;font-size:clamp(17px,2.6vh,20px);font-weight:900;line-height:1.6;min-height:3.2em}
-.pleas{margin-top:auto;border-top:1px solid var(--ink)}
-.plea{display:flex;justify-content:space-between;align-items:center;width:100%;padding:clamp(10px,1.8vh,15px) 0;border:0;border-bottom:1px solid var(--rule);background:none;font-size:16px;text-align:left;transition:color .3s,padding .3s var(--ease)}
+.say{margin:var(--gap) 0 10px;font-size:clamp(17px,2.6vh,20px);font-weight:900;line-height:1.6;min-height:3.2em}
+.pleas{margin-top:var(--gap);border-top:1px solid var(--ink)}
+.plea{display:flex;justify-content:space-between;align-items:center;width:100%;padding:clamp(11px,1.8vh,15px) 0;border:0;border-bottom:1px solid var(--rule);background:none;font-size:16px;text-align:left;transition:color .3s}
 .plea::after{content:"→";font-family:var(--mono);color:var(--mute)}
 .plea.used{color:var(--mute)}
 
 /* 3 — 判決 */
-.verdict-wrap{position:relative;flex:none}
-.verdict-pre{margin:0 0 6px;font-size:14px;line-height:1.7;color:#4c4a44}
-.verdict{margin:0;font-weight:900;font-size:clamp(26px,min(8.4vw,4.6vh),36px);line-height:1.45;letter-spacing:.02em}
+.verdict-wrap{position:relative}
+.verdict{margin:0;font-weight:900;font-size:clamp(28px,min(8.8vw,4.8vh),36px);line-height:1.45;letter-spacing:.02em}
 .verdict em{font-style:normal;box-shadow:inset 0 -.42em 0 rgba(211,69,44,.22)}
-.clauses{flex:none;list-style:none;margin:var(--gap) 0 0;padding:0;border-top:1px solid var(--ink);counter-reset:c}
-.clauses li{display:grid;grid-template-columns:30px 1fr;padding:clamp(7px,1.3vh,12px) 0;border-bottom:1px solid var(--rule);font-size:15px;line-height:1.7;color:#4c4a44}
+.clauses{list-style:none;margin:var(--block) 0 0;padding:0;border-top:1px solid var(--ink);counter-reset:c}
+.clauses li{display:grid;grid-template-columns:30px 1fr;padding:clamp(8px,1.4vh,12px) 0;border-bottom:1px solid var(--rule);font-size:15px;line-height:1.7;color:#4c4a44}
 .clauses li::before{counter-increment:c;content:counter(c,cjk-ideographic);font-size:13px;color:var(--mute)}
 .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:6px 0 2px}
 .slot{min-height:42px;padding:0 2px;border:1px solid var(--ink);border-radius:3px;background:none;font-size:14px;font-weight:900;letter-spacing:.02em;color:var(--ink);transition:background .2s,color .2s}
@@ -155,24 +154,27 @@ svg.dino,svg.cat{display:block;overflow:visible}
 .appeal.sat .btn{color:var(--mute);border-color:var(--rule)}.appeal.sat .btn::after{opacity:0}.appeal .btn:disabled{opacity:1}
 .cat .tail{transform-box:fill-box;transform-origin:0 100%;animation:tail 2.8s ease-in-out infinite}
 @keyframes tail{50%{transform:rotate(14deg)}}
+#appealHint{margin-top:var(--gap)}
 
-/* 4 — 簽收判決 */
-.sign{position:relative;flex:1;min-height:90px;max-height:170px;margin-top:10px;border-bottom:1px solid var(--ink)}
+/* 4 — 簽收 */
+.sign{position:relative;height:clamp(110px,20vh,160px);margin-top:10px;border-bottom:1px solid var(--ink)}
 .sign canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.sign .ph{position:absolute;left:0;right:0;top:42%;text-align:center;font-size:15px;color:var(--mute);opacity:.6;pointer-events:none;transition:opacity .2s}
+.sign.inked .ph{opacity:0}
 .sign .x{position:absolute;left:0;bottom:8px;font-family:var(--mono);color:var(--mute);pointer-events:none}
 .sign .link{position:absolute;right:-10px;top:-4px}
-.ticket{display:block;flex:1;min-height:0;max-width:100%;margin:12px auto 0;object-fit:contain;filter:drop-shadow(0 18px 22px rgba(22,22,20,.22));animation:in .8s var(--ease) both}
+.ticket{display:block;max-width:100%;max-height:calc(100svh - 312px);margin:var(--gap) auto 0;filter:drop-shadow(0 18px 22px rgba(22,22,20,.22));animation:in .8s var(--ease) both}
 
 /* 5 — 延期 */
-.nap{flex:1;min-height:0;display:grid;place-items:center}
-.nap .cat{width:140px}
+.nap{display:grid;place-items:center;margin-top:var(--block)}
+.nap .cat{width:130px}
 
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));z-index:9;max-width:calc(100vw - 40px);padding:11px 18px;background:var(--ink);color:var(--paper);font-size:13px;letter-spacing:.04em;border-radius:3px;opacity:0;transform:translate(-50%,14px);transition:.25s;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .nojs{margin:8px 0 0;padding:12px 14px;border:1px solid var(--seal);font-size:13px;line-height:1.7;color:var(--seal)}
 
-@media (min-width:700px){.app{height:min(100svh,880px);margin-top:max(0px,calc((100svh - 880px)/2))}}
-@media (max-height:640px){.lede{font-size:15px;line-height:1.7}.verdict-pre{font-size:13px}.btn{min-height:48px}.slot{min-height:38px}.doc>div{font-size:15px}.plea{font-size:15px}}
+@media (min-width:700px){.app{min-height:0;margin-top:max(0px,calc((100svh - 820px)/2))}}
+@media (max-height:640px){.lede{font-size:15px;line-height:1.7}.btn{min-height:48px}.slot{min-height:38px}.doc>div{font-size:15px}.plea{font-size:15px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
@@ -182,95 +184,93 @@ svg.dino,svg.cat{display:block;overflow:visible}
     <span>恐龍地方法院</span>
     <span class="bar-r"><button class="sound" id="sound" aria-pressed="true">聲音 開</button><span class="mono" id="step">01 / 04</span></span>
   </header>
-  <p class="nojs" id="nojs" role="alert">互動還沒啟動。請用瀏覽器直接打開這個網址。</p>
+  <p class="nojs" id="nojs" role="alert">互動還沒啟動 請用瀏覽器直接打開這個網址</p>
   <main>
 
     <section class="scene active" data-step="1" aria-label="傳票送達">
-      <p class="kicker">115年度自字第18號 · 以柔 親收</p>
-      <h1 class="display">你被告了。</h1>
-      <p class="lede">自訴人 Jimmy 已向本院提起自訴。<br>案由很嚴重，信封上不方便寫。</p>
+      <p class="kicker">以柔 親收</p>
+      <h1 class="display">你被告了</h1>
+      <p class="lede">Jimmy 告你<br>事情很嚴重 但不肯寫在信封上</p>
       <div class="seal-zone">
-        <button class="seal" id="seal" aria-label="按住印章兩秒，簽收傳票">
+        <button class="seal" id="seal" aria-label="按住印章兩秒簽收傳票">
           <svg viewBox="0 0 148 148" aria-hidden="true"><circle class="track" cx="74" cy="74" r="70"/><circle class="arc" id="arc" cx="74" cy="74" r="70"/></svg>
           <span class="seal-face" aria-hidden="true">恐龍<br>法院</span>
         </button>
-        <p class="do" id="sealHint" aria-live="polite">按住印章 2 秒，簽收傳票</p>
+        <p class="do" id="sealHint" aria-live="polite">按住印章 2 秒簽收</p>
       </div>
+      <p class="fine">拒收無效 本院已經看到你打開了</p>
       <div class="peek-edge" aria-hidden="true"><div class="flip" data-dino></div></div>
-      <p class="fine">拒收也沒用，本院會留置送達。</p>
     </section>
 
-    <section class="scene" data-step="2" aria-label="自訴狀繕本">
-      <p class="kicker">刑事自訴狀 · 繕本</p>
+    <section class="scene" data-step="2" aria-label="起訴狀">
+      <p class="kicker">起訴狀</p>
       <h1 class="display sm">Jimmy 訴 以柔</h1>
       <dl class="doc">
         <div><dt>自訴人</dt><dd>Jimmy</dd></div>
         <div><dt>被告</dt><dd>以柔</dd></div>
         <div><dt>案由</dt><dd><span class="redact">讓喬治流落街頭</span></dd></div>
-        <div class="later" id="facts"><dt>事實</dt><dd>喬治離家出走，被告知情且放棄找尋，還有了新娃娃。</dd></div>
-        <div><dt>求刑</dt><dd><span class="redact">還不能看。</span></dd></div>
+        <div class="later" id="facts"><dt>事實</dt><dd>喬治離家出走<br>被告知情且放棄找尋<br>還有了新娃娃</dd></div>
+        <div><dt>求刑</dt><dd><span class="redact">還不能看</span></dd></div>
       </dl>
       <div class="watch">
         <p class="do" id="docHint" aria-live="polite">用手指擦掉黑色的地方</p>
         <div class="flip" aria-hidden="true" data-dino></div>
       </div>
       <div class="actions">
-        <button class="btn" id="toCourt" disabled>準時到庭</button>
+        <button class="btn" id="toCourt" disabled>出庭</button>
       </div>
     </section>
 
-    <section class="scene" data-step="3" aria-label="審判期日">
-      <p class="kicker">審判期日 · 第一法庭</p>
+    <section class="scene" data-step="3" aria-label="開庭">
+      <p class="kicker">開庭</p>
       <div class="stage">
         <div data-dino id="judge"></div>
         <div class="bench"><span class="plate">審判長</span></div>
-        <button class="mic" id="mic" aria-label="代審判長按麥克風">
-          <svg viewBox="0 0 50 72" aria-hidden="true"><rect x="7" y="64" width="36" height="8" rx="4" fill="var(--ink)"/><path d="M25 66V42q0-9 7-14" fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/><g transform="rotate(28 34 16)"><rect x="27" y="1" width="15" height="27" rx="7.5" fill="var(--ink)"/><path d="M30.5 9h8M30.5 14h8M30.5 19h8" stroke="var(--paper)" stroke-width="1.6"/></g></svg>
+        <button class="gavel" id="gavel" aria-label="代替審判長敲法槌">
+          <svg viewBox="0 0 58 80" aria-hidden="true"><rect x="25" y="26" width="8" height="52" rx="4" fill="var(--ink)"/><rect x="3" y="6" width="52" height="26" rx="7" fill="var(--ink)"/><rect x="11" y="6" width="2.5" height="26" fill="var(--paper)"/><rect x="44.5" y="6" width="2.5" height="26" fill="var(--paper)"/></svg>
         </button>
         <div class="knocks" id="knocks" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
-      <p class="say" id="say" aria-live="polite">被告，你可以保持緘默。<br>但喬治的事，你怎麼說？</p>
-      <p class="do" id="courtHint" aria-live="polite">選一個回答</p>
+      <p class="say" id="say" aria-live="polite">被告你可以保持緘默<br>但喬治的事 你怎麼說</p>
+      <p class="do" id="courtHint" aria-live="polite"></p>
       <div class="pleas">
         <button class="plea" data-plea="guilty">我認罪</button>
         <button class="plea" data-plea="innocent">我否認</button>
-        <button class="plea" data-plea="proof">聲請調查證據</button>
+        <button class="plea" data-plea="proof">我要看證據</button>
       </div>
     </section>
 
-    <section class="scene" data-step="4" aria-label="宣示判決">
-      <p class="kicker">刑事判決 · 主文</p>
+    <section class="scene" data-step="4" aria-label="判決">
+      <p class="kicker">判決</p>
       <div class="verdict-wrap" id="verdictWrap">
-        <p class="verdict-pre">以柔犯讓喬治流落街頭罪，處拘役壹日，緩刑貳年，並應履行：</p>
-        <h1 class="verdict">本週末陪自訴人<br>去<em>十八尖山</em>跑步一次。</h1>
+        <h1 class="verdict">被告以柔<br>本週末陪 Jimmy<br>去<em>十八尖山</em>跑步一次</h1>
       </div>
       <ol class="clauses">
-        <li><div>時間由被告選定：
+        <li><div>時間由被告選
           <div class="slots" id="slots" role="radiogroup" aria-label="跑步時間">
             <button class="slot" role="radio" aria-checked="false" data-slot="週六 下午五點後">週六五點後</button>
             <button class="slot" role="radio" aria-checked="false" data-slot="週日 早上">週日早上</button>
             <button class="slot" role="radio" aria-checked="false" data-slot="週日 下午">週日下午</button>
           </div></div></li>
-        <li>跑不動的路段，得以散步代替。</li>
-        <li>不服本判決，得於二十日內上訴。</li>
+        <li>跑不動的路段 可以用散步代替</li>
+        <li>原則可上訴 想要的話可以試試看</li>
       </ol>
-      <div class="actions">
-        <p class="do" id="appealHint" aria-live="polite">先選時間，再按服從判決</p>
+      <p class="quip" id="appealHint" aria-live="polite"></p>
+      <div class="actions" style="margin-top:var(--gap)">
         <div class="row2">
           <button class="btn" id="yes">服從判決</button>
           <div class="appeal" id="appealWrap"><button class="btn ghost" id="appeal">上訴</button><div data-cat aria-hidden="true"></div></div>
         </div>
-        <button class="link" id="later">聲請延期履行（這週末真的不行）</button>
+        <button class="link" id="later">聲請延期 這週末真的不行</button>
       </div>
     </section>
 
-    <section class="scene" data-step="4" aria-label="簽收判決">
-      <p class="kicker" id="doneKicker">判決送達</p>
-      <h1 class="display sm" id="doneTitle">請簽收判決。</h1>
-      <p class="lede" id="doneLede">簽了才算數。字醜不影響效力。</p>
-      <p class="do" id="signHint" style="margin-top:var(--gap)">在下面的線上簽名</p>
-      <div class="sign" id="signBox"><canvas id="pad" aria-label="簽名欄"></canvas><span class="x" aria-hidden="true">×</span><button class="link" id="clear">重簽</button></div>
-      <img class="ticket" id="ticket" alt="恐龍地方法院刑事判決：本週末到十八尖山跑步" hidden />
+    <section class="scene" data-step="4" aria-label="簽收判決書">
+      <p class="kicker" id="doneKicker">判決書</p>
+      <h1 class="display sm" id="doneTitle">請被告簽收</h1>
+      <p class="lede" id="doneLede">簽了才算數 字醜不影響效力</p>
+      <div class="sign" id="signBox"><canvas id="pad" aria-label="簽名欄"></canvas><span class="ph" aria-hidden="true">在這裡簽名</span><span class="x" aria-hidden="true">×</span><button class="link" id="clear">重簽</button></div>
+      <img class="ticket" id="ticket" alt="恐龍地方法院判決書 本週末到十八尖山跑步" hidden />
       <div class="actions">
         <button class="btn" id="issue">領取判決書</button>
         <div class="row2" id="after" hidden>
@@ -281,10 +281,10 @@ svg.dino,svg.cat{display:block;overflow:visible}
       </div>
     </section>
 
-    <section class="scene" data-step="4" aria-label="准予延期履行">
-      <p class="kicker">裁定 · 准予延期履行</p>
-      <h1 class="display">那就改天。</h1>
-      <p class="lede">時間不合不犯法。<br>本院把案卷收好，下次再傳一次。</p>
+    <section class="scene" data-step="4" aria-label="准予延期">
+      <p class="kicker">准予延期</p>
+      <h1 class="display">那就改天</h1>
+      <p class="lede">時間不合不犯法<br>本院把傳票收好 下次再寄一次</p>
       <div class="nap" aria-hidden="true"><div data-cat></div></div>
       <div class="actions">
         <button class="btn" id="copy">複製一句回覆</button>
@@ -302,7 +302,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 $('#nojs').hidden=true;
 
-const CONFIG={name:'以柔',plaintiff:'Jimmy',place:'十八尖山',caseNo:'115年度自字第18號',reply:'這週末不行，改天再陪你去十八尖山。',filename:'恐龍地方法院_判決書.png'};
+const CONFIG={name:'以柔',plaintiff:'Jimmy',place:'十八尖山',reply:'這週末不行 改天再陪你去十八尖山',filename:'恐龍地方法院_判決書.png'};
 const COLORS={ink:'#161614',paper:'#f4f2ec',seal:'#d3452c'};
 
 /* ── 角色：同一份向量，畫面與判決書共用 ── */
@@ -387,7 +387,6 @@ $('#sound').addEventListener('click',e=>{e.stopPropagation();soundOn=!soundOn;co
 
 let toastTimer=0;
 function toast(msg,ms=2600){const el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),ms)}
-/* 操作提示：要動手時紅色，狀態回報時黑色 */
 function cue(sel,text,ok=false){const el=$(sel);el.textContent=text;el.classList.toggle('ok',ok)}
 
 /* ── 換場 ── */
@@ -400,18 +399,18 @@ function goto(n){
 }
 scenes.forEach((s,i)=>s.inert=i!==0);
 
-/* ── 0 按住印章簽收傳票 ── */
+/* ── 0 按住印章簽收 ── */
 const seal=$('#seal'),arc=$('#arc'),LEN=2*Math.PI*70,HOLD=1600;
 arc.style.strokeDasharray=LEN;arc.style.strokeDashoffset=LEN;
 let holdAt=0,raf=0,signed=false;
 function holdTick(now){
   const p=Math.min(1,(now-holdAt)/HOLD);arc.style.strokeDashoffset=LEN*(1-p);
   if(p<1){raf=requestAnimationFrame(holdTick);return}
-  signed=true;seal.classList.remove('holding');seal.classList.add('done');cue('#sealHint','傳票送達。',true);tone('gavel');
+  signed=true;seal.classList.remove('holding');seal.classList.add('done');cue('#sealHint','簽收完成',true);tone('gavel');
   setTimeout(()=>goto(1),650);
 }
-function holdStart(){if(signed||holdAt)return;holdAt=performance.now();seal.classList.add('holding');cue('#sealHint','不要放開……');tone('tick');raf=requestAnimationFrame(holdTick)}
-function holdEnd(){if(signed||!holdAt)return;cancelAnimationFrame(raf);holdAt=0;seal.classList.remove('holding');arc.style.strokeDashoffset=LEN;cue('#sealHint','太快了。按住印章 2 秒')}
+function holdStart(){if(signed||holdAt)return;holdAt=performance.now();seal.classList.add('holding');tone('tick');raf=requestAnimationFrame(holdTick)}
+function holdEnd(){if(signed||!holdAt)return;cancelAnimationFrame(raf);holdAt=0;seal.classList.remove('holding');arc.style.strokeDashoffset=LEN;cue('#sealHint','按久一點')}
 seal.addEventListener('pointerdown',e=>{try{seal.setPointerCapture(e.pointerId)}catch(_){}holdStart()});
 seal.addEventListener('pointerup',holdEnd);seal.addEventListener('pointercancel',holdEnd);
 seal.addEventListener('contextmenu',e=>e.preventDefault());
@@ -423,7 +422,7 @@ const redacts=$$('.redact');
 redacts.forEach(r=>{
   const bar=document.createElement('span');bar.className='inkbar';bar.setAttribute('aria-hidden','true');
   for(let i=0,n=Math.max(8,r.textContent.length*2);i<n;i++)bar.append(document.createElement('i'));
-  r.append(bar);r.tabIndex=0;r.setAttribute('role','button');r.setAttribute('aria-label','塗黑的段落，按一下顯示');
+  r.append(bar);r.tabIndex=0;r.setAttribute('role','button');r.setAttribute('aria-label','塗黑的段落 按一下顯示');
   r.addEventListener('click',()=>reveal(r));
   r.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();reveal(r)}});
 });
@@ -432,9 +431,8 @@ function reveal(r){
   [...r.querySelectorAll('.inkbar i')].forEach((s,i)=>setTimeout(()=>s.classList.add('off'),i*16));
   tone('paper');
   if(r===redacts[0])$('#facts').classList.add('show');
-  const left=redacts.filter(x=>!x.dataset.done).length;
-  if(left){cue('#docHint','還有一處黑的，擦掉它');return}
-  cue('#docHint','求刑要等宣判。',true);
+  if(redacts.some(x=>!x.dataset.done))return;
+  cue('#docHint','求刑要等宣判',true);
   $('#toCourt').disabled=false;const d=$('.watch svg.dino');d.classList.add('hop');setTimeout(()=>d.classList.remove('hop'),600);
 }
 function rub(e){
@@ -446,47 +444,45 @@ function rub(e){
 addEventListener('pointermove',rub,{passive:true});
 $('#toCourt').addEventListener('click',()=>goto(2));
 
-/* ── 2 審判期日：審判長手短，請代按麥克風 ── */
+/* ── 2 開庭：審判長手短，請代敲法槌 ── */
 const PLEAS={
-  guilty:'認得這麼快，本庭反而有點慌。',
-  innocent:'每個讓喬治流落街頭的人都這麼說。',
-  proof:'證物一：被告背包上的鱷魚娃娃。<br>證物二還沒想到。'
+  guilty:'認得這麼快<br>本庭反而有點慌',
+  innocent:'每個讓喬治流落街頭的人<br>都這麼說',
+  proof:'證物一 被告背包上的鱷魚娃娃<br>證物二還沒想到'
 };
 let pleaded=false,knocks=0;
-const judge=$('#judge svg'),mic=$('#mic');
+const judge=$('#judge svg'),gavel=$('#gavel');
 function flail(){judge.classList.remove('flail');void judge.getBoundingClientRect();judge.classList.add('flail')}
 $$('.plea').forEach(b=>b.addEventListener('click',()=>{
   b.classList.add('used');$('#say').innerHTML=PLEAS[b.dataset.plea];tone('tick');
-  if(!pleaded){pleaded=true;cue('#courtHint','辯論終結……',true);setTimeout(()=>{mic.classList.add('ready');cue('#courtHint','審判長手太短，幫牠點麥克風 3 下');flail()},900)}
+  if(!pleaded){pleaded=true;setTimeout(()=>{gavel.classList.add('ready');cue('#courtHint','審判長手太短 幫牠敲法槌 3 下');flail()},900)}
 }));
-mic.addEventListener('click',()=>{
+gavel.addEventListener('click',()=>{
   if(knocks>=3)return;
-  if(!pleaded){cue('#courtHint','還沒輪到麥克風，先選一個回答');flail();return}
-  knocks++;mic.classList.remove('tap');void mic.getBoundingClientRect();mic.classList.add('tap');
-  tone('gavel');const app=$('#app');app.classList.remove('shake');void app.getBoundingClientRect();app.classList.add('shake');
-  $$('#knocks i').forEach((n,i)=>n.classList.toggle('on',i<knocks));flail();
-  if(knocks<3){cue('#courtHint',`再點麥克風 ${3-knocks} 下`);return}
-  mic.classList.remove('ready');$('#say').innerHTML='全體起立。<br>本庭宣示判決。';cue('#courtHint','起立聽判',true);setTimeout(()=>goto(3),1400);
+  if(!pleaded){flail();return}
+  knocks++;gavel.classList.remove('ready','hit');void gavel.getBoundingClientRect();gavel.classList.add('hit');
+  setTimeout(()=>{tone('gavel');const app=$('#app');app.classList.remove('shake');void app.getBoundingClientRect();app.classList.add('shake');$$('#knocks i').forEach((n,i)=>n.classList.toggle('on',i<knocks));flail()},200);
+  if(knocks===3){$('#say').innerHTML='全體起立<br>宣判';cue('#courtHint','');setTimeout(()=>goto(3),1300)}
 });
 
-/* ── 3 判決：先選時間；上訴會被駁回；延期永遠可以 ── */
-const APPEALS=['上訴駁回。理由：上訴書狀未敘述具體理由。','再次駁回。理由：書狀是空白的。','書記官坐在上訴鈕上了。本院也沒辦法。'];
-const STAMPS=[{r:'-11deg',right:'-4px',top:'0'},{r:'6deg',right:'40px',top:'64px'}];
+/* ── 3 判決：選時間；上訴會被駁回；延期永遠可以 ── */
+const APPEALS=['上訴駁回\n理由 本庭不想','再次駁回\n理由同上','書記官坐在上訴鈕上了\n本庭也沒辦法'];
+const STAMPS=[{r:'-11deg',right:'-4px',top:'0'},{r:'6deg',right:'30px',top:'84px'}];
 let appeals=0,slot='';
 $('#appeal').addEventListener('click',()=>{
-  if(appeals>=3)return;appeals++;cue('#appealHint',APPEALS[appeals-1],true);
+  if(appeals>=3)return;appeals++;$('#appealHint').textContent=APPEALS[appeals-1];
   if(appeals<3){const s=document.createElement('span'),p=STAMPS[appeals-1];s.className='reject';s.textContent='駁回';s.setAttribute('aria-hidden','true');s.style.setProperty('--r',p.r);s.style.right=p.right;s.style.top=p.top;$('#verdictWrap').append(s);tone('gavel')}
   else{$('#appealWrap').classList.add('sat');$('#appeal').disabled=true;tone('paper')}
 });
-$$('.slot').forEach(b=>b.addEventListener('click',()=>{slot=b.dataset.slot;$$('.slot').forEach(x=>x.setAttribute('aria-checked',x===b));cue('#appealHint',`${slot}，記下了。按服從判決`);tone('tick')}));
+$$('.slot').forEach(b=>b.addEventListener('click',()=>{slot=b.dataset.slot;$$('.slot').forEach(x=>x.setAttribute('aria-checked',x===b));tone('tick')}));
 $('#yes').addEventListener('click',()=>{
-  if(!slot){const g=$('#slots');g.classList.remove('nag');void g.offsetWidth;g.classList.add('nag');cue('#appealHint','先在上面選一個時間');tone('tick');return}
+  if(!slot){const g=$('#slots');g.classList.remove('nag');void g.offsetWidth;g.classList.add('nag');tone('tick');return}
   goto(4);tone('done')});
 $('#later').addEventListener('click',()=>goto(5));
-$('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(CONFIG.reply);toast('複製好了，貼給 Jimmy。')}catch(e){toast(CONFIG.reply)}});
+$('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(CONFIG.reply);toast('複製好了 貼給 Jimmy')}catch(e){toast(CONFIG.reply)}});
 $('#again').addEventListener('click',()=>location.reload());$('#again2').addEventListener('click',()=>location.reload());
 
-/* ── 4 簽收判決，簽完印成判決書 ── */
+/* ── 4 簽名，簽完印成判決書 ── */
 const pad=$('#pad'),pc=pad.getContext('2d');let strokes=[],cur=null,padW=1,padH=1;
 function sizePad(){const r=pad.getBoundingClientRect(),d=devicePixelRatio||1;if(!r.width)return;padW=r.width;padH=r.height;pad.width=r.width*d;pad.height=r.height*d;pc.setTransform(d,0,0,d,0,0);drawStrokes(pc,0,0,padW,padH,2.4)}
 function drawStrokes(c,x,y,w,h,lw){
@@ -500,10 +496,10 @@ function drawStrokes(c,x,y,w,h,lw){
   });
 }
 const pt=e=>{const r=pad.getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]};
-pad.addEventListener('pointerdown',e=>{try{pad.setPointerCapture(e.pointerId)}catch(_){}cur=[pt(e)];strokes.push(cur);drawStrokes(pc,0,0,padW,padH,2.4);cue('#signHint','簽好就按領取判決書',true)});
+pad.addEventListener('pointerdown',e=>{try{pad.setPointerCapture(e.pointerId)}catch(_){}cur=[pt(e)];strokes.push(cur);$('#signBox').classList.add('inked');drawStrokes(pc,0,0,padW,padH,2.4)});
 pad.addEventListener('pointermove',e=>{if(!cur)return;cur.push(pt(e));drawStrokes(pc,0,0,padW,padH,2.4)});
 const penUp=()=>{cur=null};pad.addEventListener('pointerup',penUp);pad.addEventListener('pointercancel',penUp);
-$('#clear').addEventListener('click',()=>{strokes=[];drawStrokes(pc,0,0,padW,padH,2.4);cue('#signHint','在下面的線上簽名')});
+$('#clear').addEventListener('click',()=>{strokes=[];$('#signBox').classList.remove('inked');drawStrokes(pc,0,0,padW,padH,2.4)});
 addEventListener('resize',()=>{if(scene===4&&!$('#signBox').hidden)sizePad()});
 
 const svgImage=m=>new Promise(res=>{const i=new Image();i.onload=()=>res(i);i.onerror=()=>res(null);i.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(m)});
@@ -511,22 +507,19 @@ let blob=null,blobUrl='';
 async function buildTicket(){
   const W=1200,H=1600,M=96,cv=document.createElement('canvas');cv.width=W;cv.height=H;const c=cv.getContext('2d');
   const serif='"Noto Serif TC","Songti TC","PingFang TC",serif',mono='ui-monospace,"SF Mono",Menlo,monospace';
-  const pre=`${CONFIG.name}犯讓喬治流落街頭罪，處拘役壹日，緩刑貳年，並應履行：`;
-  const lines=['本週末陪自訴人',`去${CONFIG.place}跑步一次。`];
-  const rows=[['自訴人',CONFIG.plaintiff],['被告',CONFIG.name],['地點',CONFIG.place],['時間',slot||'另定'],['備註','跑不動的路段，得以散步代替']];
+  const lines=[`被告${CONFIG.name}`,`本週末陪 ${CONFIG.plaintiff}`,`去${CONFIG.place}跑步一次`];
+  const rows=[['被告',CONFIG.name],['地點',CONFIG.place],['時間',slot||'另外喬'],['備註','跑不動的路段 可以用散步代替']];
   const signedIt=strokes.length>0;
-  try{await Promise.all([document.fonts.load(`900 92px "Noto Serif TC"`,lines.join('')+'恐龍地方法院刑事判決'),document.fonts.load(`500 34px "Noto Serif TC"`,pre+rows.flat().join('')+'週六日早下午五點後被告簽收（拒簽，但人會到）請把這張傳回去當作報到。主文')])}catch(e){}
+  try{await Promise.all([document.fonts.load(`900 92px "Noto Serif TC"`,lines.join('')+'恐龍地方法院判決書'),document.fonts.load(`500 34px "Noto Serif TC"`,rows.flat().join('')+'週六日早下午五點後另外喬被告簽收拒簽但人會到請把這張傳回去當作報到')])}catch(e){}
   const [dino,cat]=await Promise.all([svgImage(dinoSVG(COLORS,'width="480" height="460"')),svgImage(catSVG(COLORS,'width="260" height="192"'))]);
   c.fillStyle=COLORS.paper;c.fillRect(0,0,W,H);
   c.fillStyle=COLORS.ink;c.textBaseline='alphabetic';
   c.font=`500 34px ${serif}`;c.textAlign='left';c.fillText('恐 龍 地 方 法 院',M,150);
-  c.font=`24px ${mono}`;c.textAlign='right';c.fillStyle='#8b887e';c.fillText(CONFIG.caseNo,W-M,148);
   c.fillStyle=COLORS.ink;c.fillRect(M,190,W-M*2,3);
   c.fillStyle=COLORS.seal;c.beginPath();c.arc(M+9,268,9,0,7);c.fill();
-  c.fillStyle='#8b887e';c.font=`500 30px ${serif}`;c.textAlign='left';c.fillText('刑 事 判 決 · 主 文',M+36,279);
-  c.fillStyle='#4c4a44';c.font=`500 32px ${serif}`;c.fillText(pre,M,370);
-  c.fillStyle=COLORS.ink;c.font=`900 92px ${serif}`;lines.forEach((t,i)=>c.fillText(t,M-4,500+i*132));
-  let y=700;c.fillRect(M,y,W-M*2,2);
+  c.fillStyle='#8b887e';c.font=`500 30px ${serif}`;c.textAlign='left';c.fillText('判 決 書',M+36,279);
+  c.fillStyle=COLORS.ink;c.font=`900 92px ${serif}`;lines.forEach((t,i)=>c.fillText(t,M-4,420+i*132));
+  let y=760;c.fillRect(M,y,W-M*2,2);
   rows.forEach(([k,v])=>{y+=68;c.fillStyle='#8b887e';c.font=`500 28px ${serif}`;c.fillText(k,M,y);c.fillStyle=COLORS.ink;c.font=`500 36px ${serif}`;c.fillText(v,M+150,y);c.fillStyle='rgba(22,22,20,.14)';c.fillRect(M,y+24,W-M*2,2)});
   /* 山線與兩位當事人 */
   const gy=1340;c.strokeStyle=COLORS.ink;c.lineWidth=3;c.beginPath();c.moveTo(M,gy);c.bezierCurveTo(360,gy,430,gy-70,620,gy-70);c.bezierCurveTo(820,gy-70,880,gy,W-M,gy);c.stroke();
@@ -535,12 +528,12 @@ async function buildTicket(){
   /* 簽名與院印 */
   c.fillStyle='#8b887e';c.font=`500 26px ${serif}`;c.textAlign='left';c.fillText('被告簽收',M,1420);
   if(signedIt){const bw=440,bh=bw*padH/padW;drawStrokes(c,M+130,1500-bh*.82,bw,bh,5)}
-  else{c.fillStyle=COLORS.ink;c.font=`500 32px ${serif}`;c.fillText('（拒簽，但人會到）',M+130,1486)}
+  else{c.fillStyle=COLORS.ink;c.font=`500 32px ${serif}`;c.fillText('拒簽 但人會到',M+130,1486)}
   c.fillStyle=COLORS.ink;c.fillRect(M,1504,620,2);
   c.save();c.translate(W-M-80,1446);c.rotate(-.12);c.fillStyle=COLORS.seal;c.globalAlpha=.94;c.beginPath();c.arc(0,0,80,0,7);c.fill();c.globalAlpha=1;c.strokeStyle=COLORS.paper;c.lineWidth=3;c.beginPath();c.arc(0,0,68,0,7);c.stroke();c.fillStyle=COLORS.paper;c.font=`900 44px ${serif}`;c.textAlign='center';c.fillText('恐龍',0,-7);c.fillText('法院',0,44);c.restore();
   const d=new Date(),ds=`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`;
   c.fillStyle='#8b887e';c.font=`24px ${mono}`;c.textAlign='left';c.fillText(ds,M,1554);
-  c.font=`500 26px ${serif}`;c.textAlign='right';c.fillText('請把這張傳回去，當作報到。',W-M,1554);
+  c.font=`500 26px ${serif}`;c.textAlign='right';c.fillText('請把這張傳回去 當作報到',W-M,1554);
   blob=await new Promise(r=>cv.toBlob(r,'image/png'));
   if(blobUrl)URL.revokeObjectURL(blobUrl);blobUrl=blob?URL.createObjectURL(blob):cv.toDataURL('image/png');
   return blobUrl;
@@ -548,10 +541,10 @@ async function buildTicket(){
 $('#issue').addEventListener('click',async()=>{
   const b=$('#issue');b.disabled=true;
   let url='';try{url=await buildTicket()}catch(e){}
-  if(!url){b.disabled=false;toast('判決書卡紙了，再按一次。');return}
-  $('#ticket').src=url;$('#ticket').hidden=false;['#signBox','#doneLede','#signHint'].forEach(s=>$(s).hidden=true);b.hidden=true;
+  if(!url){b.disabled=false;toast('判決書卡紙了 再按一次');return}
+  $('#ticket').src=url;$('#ticket').hidden=false;['#signBox','#doneLede'].forEach(s=>$(s).hidden=true);b.hidden=true;
   $('#after').hidden=false;$('#again').hidden=false;
-  $('#doneTitle').textContent='判決確定。';$('#doneKicker').textContent='被告捨棄上訴 · 全案確定';tone('done');
+  $('#doneTitle').textContent='判決確定';$('#doneKicker').textContent='結案';tone('done');
 });
 /* 存到相簿：手機用系統分享選單（iPhone 選「儲存影像」即進照片）；不支援時才退回下載 */
 const ticketFile=()=>blob?new File([blob],CONFIG.filename,{type:'image/png'}):null;
@@ -559,16 +552,16 @@ const canShareFile=f=>!!(f&&navigator.canShare&&navigator.canShare({files:[f]}))
 $('#save').addEventListener('click',async()=>{
   const f=ticketFile();
   if(canShareFile(f)){
-    toast('選「儲存影像」，就會存進相簿。',4000);
+    toast('選 儲存影像 就會存進相簿',4000);
     try{await navigator.share({files:[f]});return}catch(e){if(e.name==='AbortError')return}
   }
-  if(/iPhone|iPad|Android/i.test(navigator.userAgent)){toast('長按上面的判決書，選「加入照片」或「儲存圖片」。',4500);return}
+  if(/iPhone|iPad|Android/i.test(navigator.userAgent)){toast('長按判決書 選 加入照片',4500);return}
   const a=document.createElement('a');a.href=blobUrl;a.download=CONFIG.filename;document.body.append(a);a.click();a.remove();
 });
 $('#share').addEventListener('click',async()=>{
   const f=ticketFile();
-  if(canShareFile(f)){try{await navigator.share({files:[f],text:slot?`服從判決。${slot}見。`:'服從判決。'});return}catch(e){if(e.name==='AbortError')return}}
-  toast('這個瀏覽器不能直接傳。長按判決書存下來再傳。',4000);
+  if(canShareFile(f)){try{await navigator.share({files:[f],text:slot?`服從判決 ${slot}見`:'服從判決'});return}catch(e){if(e.name==='AbortError')return}}
+  toast('這個瀏覽器不能直接傳 長按判決書存下來再傳',4000);
 });
 })();
 </script>
