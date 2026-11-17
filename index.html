@@ -10,7 +10,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="恐龍最高法院" />
 <meta property="og:title" content="你被告了。" />
-<meta property="og:description" content="恐字第 018 號。拒收無效，請本人簽收。" />
+<meta property="og:description" content="恐字第 018 號，以柔 親收。拒收無效。" />
 <meta property="og:url" content="https://jimmynycuee.github.io/dino-court/" />
 <meta property="og:image" content="https://jimmynycuee.github.io/dino-court/og.png" />
 <meta property="og:image:width" content="1200" />
@@ -170,7 +170,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
   <main>
 
     <section class="scene active" data-step="1" aria-label="送達">
-      <p class="kicker">恐字第 018 號 · 送達</p>
+      <p class="kicker">恐字第 018 號 · 以柔 親收</p>
       <h1 class="display">你被告了。</h1>
       <p class="lede">原告是一隻恐龍。<br>牠說事情很嚴重，但不肯寫在信封上。</p>
       <div class="seal-zone">
@@ -186,10 +186,10 @@ svg.dino,svg.cat{display:block;overflow:visible}
 
     <section class="scene" data-step="2" aria-label="起訴書">
       <p class="kicker">起訴書</p>
-      <h1 class="display sm">恐龍　訴　你</h1>
+      <h1 class="display sm">恐龍　訴　以柔</h1>
       <dl class="doc">
         <div><dt>原告</dt><dd>一隻恐龍（兼任本案法官）</dd></div>
-        <div><dt>被告</dt><dd>你</dd></div>
+        <div><dt>被告</dt><dd>以柔</dd></div>
         <div><dt>案由</dt><dd><span class="redact">讓喬治流落街頭</span></dd></div>
         <div><dt>事實</dt><dd><span class="redact">喬治至今無人收留，</span><br><span class="redact">被告知情，而且沒有要管。</span></dd></div>
         <div><dt>求刑</dt><dd><span class="redact">還不能看。</span></dd></div>
@@ -276,7 +276,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 $('#nojs').hidden=true;
 
-const CONFIG={place:'十八尖山',reply:'這週末不行，改天再陪你去十八尖山。',filename:'恐龍最高法院_判決書.png'};
+const CONFIG={name:'以柔',place:'十八尖山',reply:'這週末不行，改天再陪你去十八尖山。',filename:'恐龍最高法院_判決書.png'};
 const COLORS={ink:'#161614',paper:'#f4f2ec',seal:'#d3452c'};
 
 /* ── 角色：同一份向量，畫面與判決書共用 ── */
@@ -446,7 +446,7 @@ async function buildTicket(){
   const W=1200,H=1600,M=96,cv=document.createElement('canvas');cv.width=W;cv.height=H;const c=cv.getContext('2d');
   const serif='"Noto Serif TC","Songti TC","PingFang TC",serif',mono='ui-monospace,"SF Mono",Menlo,monospace';
   const lines=['被告應於本週末，',`陪原告去${CONFIG.place}`,'跑步一次。'];
-  const rows=[['地點',CONFIG.place],['時間','另外喬'],['備註','跑不動的路段，得以散步代替']];
+  const rows=[['被告',CONFIG.name],['地點',CONFIG.place],['時間','另外喬'],['備註','跑不動的路段，得以散步代替']];
   const signedIt=strokes.length>0;
   try{await Promise.all([document.fonts.load(`900 96px "Noto Serif TC"`,lines.join('')+'恐龍最高法院判決書駁回'),document.fonts.load(`500 34px "Noto Serif TC"`,rows.flat().join('')+'被告簽名（拒簽，但人會到）請把這張傳回去當作報到。')])}catch(e){}
   const [dino,cat]=await Promise.all([svgImage(dinoSVG(COLORS,'width="480" height="460"')),svgImage(catSVG(COLORS,'width="260" height="192"'))]);
