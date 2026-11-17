@@ -131,6 +131,12 @@ svg.dino,svg.cat{display:block;overflow:visible}
 .clauses{list-style:none;margin:28px 0 0;padding:0;border-top:1px solid var(--ink);counter-reset:c}
 .clauses li{display:grid;grid-template-columns:36px 1fr;padding:13px 0;border-bottom:1px solid var(--rule);font-size:15px;line-height:1.8;color:#4c4a44}
 .clauses li::before{counter-increment:c;content:counter(c,cjk-ideographic);font-size:13px;color:var(--mute)}
+.clauses .slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0 2px}
+.slot{min-height:44px;padding:0 4px;border:1px solid var(--rule);border-radius:3px;background:none;font-size:14px;letter-spacing:.04em;color:var(--ink);transition:background .2s,color .2s,border-color .2s}
+.slot[aria-checked="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.slots.nag{animation:shake .28s}
+.doc .later{opacity:0;transition:opacity .6s var(--ease)}
+.doc .later.show{opacity:1}
 .reject{position:absolute;padding:2px 14px;border:3px solid var(--seal);border-radius:4px;color:var(--seal);font-weight:900;font-size:34px;letter-spacing:.2em;text-indent:.2em;mix-blend-mode:multiply;pointer-events:none;animation:slam .35s cubic-bezier(.3,1.4,.5,1) both}
 @keyframes slam{from{opacity:0;transform:rotate(var(--r)) scale(2.4)}to{opacity:.92;transform:rotate(var(--r)) scale(1)}}
 .appeal{position:relative}
@@ -186,12 +192,12 @@ svg.dino,svg.cat{display:block;overflow:visible}
 
     <section class="scene" data-step="2" aria-label="起訴書">
       <p class="kicker">起訴書</p>
-      <h1 class="display sm">Jimmy　訴　以柔</h1>
+      <h1 class="display sm" style="white-space:nowrap">Jimmy 訴 以柔</h1>
       <dl class="doc">
         <div><dt>原告</dt><dd>Jimmy</dd></div>
         <div><dt>被告</dt><dd>以柔</dd></div>
         <div><dt>案由</dt><dd><span class="redact">讓喬治流落街頭</span></dd></div>
-        <div><dt>事實</dt><dd><span class="redact">喬治至今無人收留，</span><br><span class="redact">被告知情，而且沒有要管。</span></dd></div>
+        <div class="later" id="facts"><dt>事實</dt><dd>喬治現在只剩一隻恐龍陪他。<br>被告知情，而且沒有要管。</dd></div>
         <div><dt>求刑</dt><dd><span class="redact">還不能看。</span></dd></div>
       </dl>
       <div class="watch">
@@ -215,7 +221,7 @@ svg.dino,svg.cat{display:block;overflow:visible}
         <div class="knocks" id="knocks" aria-hidden="true"><i></i><i></i><i></i></div>
       </div>
       <p class="say" id="say" aria-live="polite">被告，喬治流落街頭這件事，<br>你有什麼要說的。</p>
-      <p class="hint" id="courtHint" aria-live="polite"></p>
+      <p class="hint" id="courtHint" aria-live="polite">審判長就是喬治那隻恐龍。本庭不迴避。</p>
       <div class="pleas">
         <button class="plea" data-plea="guilty">我認罪</button>
         <button class="plea" data-plea="innocent">我是無辜的</button>
@@ -229,7 +235,12 @@ svg.dino,svg.cat{display:block;overflow:visible}
         <h1 class="verdict">被告應於本週末，<br>陪原告去<em>十八尖山</em><br>跑步一次。</h1>
       </div>
       <ol class="clauses">
-        <li>時間另外喬。</li>
+        <li><div>時間由被告挑，挑了就算數。
+          <div class="slots" id="slots" role="radiogroup" aria-label="跑步時間">
+            <button class="slot" role="radio" aria-checked="false" data-slot="週六 下午五點後">週六五點後</button>
+            <button class="slot" role="radio" aria-checked="false" data-slot="週日 早上">週日早上</button>
+            <button class="slot" role="radio" aria-checked="false" data-slot="週日 下午">週日下午</button>
+          </div></div></li>
         <li>跑不動的路段，得以散步代替。</li>
         <li>本件不得上訴，但你可以試試。</li>
       </ol>
@@ -326,7 +337,38 @@ function tone(kind){
     notes.forEach(([f,len,type,vol],i)=>{const o=ctx.createOscillator(),g=ctx.createGain(),s=t+(kind==='gavel'?0:i*.1);o.type=type;o.frequency.setValueAtTime(f,s);if(kind==='gavel')o.frequency.exponentialRampToValueAtTime(f*.55,s+len);g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(vol,s+.008);g.gain.exponentialRampToValueAtTime(.0001,s+len);o.connect(g).connect(ctx.destination);o.start(s);o.stop(s+len+.02)});
   }catch(e){}
 }
-$('#sound').addEventListener('click',()=>{soundOn=!soundOn;const b=$('#sound');b.setAttribute('aria-pressed',soundOn);b.textContent=soundOn?'聲音 開':'聲音 關';tone('tick')});
+/* 背景音樂：程式即時合成，木琴＋低音，8 小節循環 */
+const BEAT8=60/96/2,_=0;
+const MEL=[76,_,79,_,84,_,79,76, 76,_,81,_,84,_,81,_, 77,_,81,_,84,_,81,77, 74,_,79,_,83,_,86,_,
+           79,76,_,72,_,74,76,_, 84,_,83,81,_,76,_,_, 81,_,84,_,77,_,79,81, 83,_,_,79,74,_,_,_];
+const BASS=[[48,55],[45,52],[41,48],[43,50]];
+const music={on:false,step:0,next:0,timer:0,bus:null};
+const hz=m=>440*2**((m-69)/12);
+function audio(){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=ctx||new A();if(ctx.state==='suspended')ctx.resume();return ctx}
+function voice(t,m,dur,vol,type){const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(hz(m),t);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(music.bus);o.start(t);o.stop(t+dur+.02)}
+function schedule(){
+  while(music.next<ctx.currentTime+.25){
+    const s=music.step%64,i=s%8,bar=Math.floor(s/8)%4,t=music.next;
+    if(MEL[s]){voice(t,MEL[s],.5,.07,'sine');voice(t,MEL[s]+24,.12,.012,'sine')}
+    if(i===0||i===4)voice(t,BASS[bar][i?1:0],.55,.06,'triangle');
+    music.next+=BEAT8;music.step++;
+  }
+}
+function musicStart(){
+  if(!soundOn||music.on)return;const c=audio();if(!c)return;
+  if(!music.bus){music.bus=c.createGain();music.bus.connect(c.destination)}
+  const g=music.bus.gain;g.cancelScheduledValues(c.currentTime);g.setValueAtTime(.0001,c.currentTime);g.exponentialRampToValueAtTime(.45,c.currentTime+1.5);
+  music.on=true;music.next=c.currentTime+.08;music.timer=setInterval(schedule,60);schedule();
+}
+function musicStop(){
+  if(!music.on)return;music.on=false;clearInterval(music.timer);
+  const g=music.bus.gain,t=ctx.currentTime;g.cancelScheduledValues(t);g.setValueAtTime(g.value,t);g.linearRampToValueAtTime(0,t+.3);
+}
+/* 瀏覽器要等第一次觸碰才准出聲 */
+const unlock=()=>{if(ctx&&ctx.state==='suspended'&&soundOn)ctx.resume();musicStart()};
+['pointerdown','touchend','click','keydown'].forEach(ev=>addEventListener(ev,unlock,{passive:true}));
+document.addEventListener('visibilitychange',()=>{if(!ctx)return;if(document.hidden)ctx.suspend();else if(soundOn)ctx.resume()});
+$('#sound').addEventListener('click',e=>{e.stopPropagation();soundOn=!soundOn;const b=$('#sound');b.setAttribute('aria-pressed',soundOn);b.textContent=soundOn?'聲音 開':'聲音 關';if(soundOn){audio();musicStart();tone('tick')}else musicStop()});
 
 let toastTimer=0;
 function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),2600)}
@@ -373,6 +415,7 @@ function reveal(r){
   [...r.querySelectorAll('.inkbar i')].forEach((s,i)=>setTimeout(()=>s.classList.add('off'),i*16));
   tone('paper');
   const left=redacts.filter(x=>!x.dataset.done).length;
+  if(r===redacts[0])$('#facts').classList.add('show');
   if(r===redacts[redacts.length-1])$('#docHint').textContent='求刑要等宣判。';
   if(!left){$('#toCourt').disabled=false;const d=$('.watch svg.dino');d.classList.add('hop');setTimeout(()=>d.classList.remove('hop'),600)}
 }
@@ -415,7 +458,11 @@ $('#appeal').addEventListener('click',()=>{
   if(appeals<3){const s=document.createElement('span'),p=STAMPS[appeals-1];s.className='reject';s.textContent='駁回';s.setAttribute('aria-hidden','true');s.style.setProperty('--r',p.r);s.style.right=p.right;s.style.top=p.top;$('#verdictWrap').append(s);tone('gavel')}
   else{$('#appealWrap').classList.add('sat');$('#appeal').disabled=true;tone('paper')}
 });
-$('#yes').addEventListener('click',()=>{goto(4);tone('done')});
+let slot='';
+$$('.slot').forEach(b=>b.addEventListener('click',()=>{slot=b.dataset.slot;$$('.slot').forEach(x=>x.setAttribute('aria-checked',x===b));$('#appealHint').textContent=`${slot}，記下了。`;tone('tick')}));
+$('#yes').addEventListener('click',()=>{
+  if(!slot){const g=$('#slots');g.classList.remove('nag');void g.offsetWidth;g.classList.add('nag');$('#appealHint').textContent='先挑時間，再服從。';tone('tick');return}
+  goto(4);tone('done')});
 $('#later').addEventListener('click',()=>goto(5));
 $('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(CONFIG.reply);toast('複製好了，貼給 Jimmy。')}catch(e){toast(CONFIG.reply)}});
 $('#again').addEventListener('click',()=>location.reload());$('#again2').addEventListener('click',()=>location.reload());
@@ -446,9 +493,9 @@ async function buildTicket(){
   const W=1200,H=1600,M=96,cv=document.createElement('canvas');cv.width=W;cv.height=H;const c=cv.getContext('2d');
   const serif='"Noto Serif TC","Songti TC","PingFang TC",serif',mono='ui-monospace,"SF Mono",Menlo,monospace';
   const lines=['被告應於本週末，',`陪原告去${CONFIG.place}`,'跑步一次。'];
-  const rows=[['被告',CONFIG.name],['地點',CONFIG.place],['時間','另外喬'],['備註','跑不動的路段，得以散步代替']];
+  const rows=[['被告',CONFIG.name],['地點',CONFIG.place],['時間',slot||'另外喬'],['備註','跑不動的路段，得以散步代替']];
   const signedIt=strokes.length>0;
-  try{await Promise.all([document.fonts.load(`900 96px "Noto Serif TC"`,lines.join('')+'恐龍最高法院判決書駁回'),document.fonts.load(`500 34px "Noto Serif TC"`,rows.flat().join('')+'被告簽名（拒簽，但人會到）請把這張傳回去當作報到。')])}catch(e){}
+  try{await Promise.all([document.fonts.load(`900 96px "Noto Serif TC"`,lines.join('')+'恐龍最高法院判決書駁回'),document.fonts.load(`500 34px "Noto Serif TC"`,rows.flat().join('')+'週六日早下午五點後被告簽名（拒簽，但人會到）請把這張傳回去當作報到。')])}catch(e){}
   const [dino,cat]=await Promise.all([svgImage(dinoSVG(COLORS,'width="480" height="460"')),svgImage(catSVG(COLORS,'width="260" height="192"'))]);
   c.fillStyle=COLORS.paper;c.fillRect(0,0,W,H);
   c.fillStyle=COLORS.ink;c.textBaseline='alphabetic';
@@ -489,7 +536,7 @@ $('#issue').addEventListener('click',async()=>{
 $('#save').addEventListener('click',()=>{const a=document.createElement('a');a.href=blobUrl;a.download=CONFIG.filename;document.body.append(a);a.click();a.remove();toast('存不了的話，長按圖片也可以。')});
 $('#share').addEventListener('click',async()=>{
   if(blob){const f=new File([blob],CONFIG.filename,{type:'image/png'});
-    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:'服從判決。'});return}catch(e){if(e.name==='AbortError')return}}}
+    if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],text:slot?`服從判決。${slot}見。`:'服從判決。'});return}catch(e){if(e.name==='AbortError')return}}}
   toast('這個瀏覽器不能直接傳。長按圖片存下來再傳。');
 });
 })();
