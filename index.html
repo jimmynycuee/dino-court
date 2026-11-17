@@ -9,6 +9,8 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="恐龍地方法院" />
 <meta property="og:title" content="恐龍地方法院" />
+<meta property="og:description" content="&#8203;" />
+<meta name="description" content="&#8203;" />
 <meta property="og:url" content="https://jimmynycuee.github.io/dino-court/" />
 <meta property="og:image" content="https://jimmynycuee.github.io/dino-court/og.png?v=3" />
 <meta property="og:image:width" content="1200" />
@@ -182,7 +184,6 @@ svg.dino,svg.cat{display:block;overflow:visible}
     <span>恐龍地方法院</span>
     <span class="bar-r"><button class="sound" id="sound" aria-pressed="true">聲音 開</button><span class="mono" id="step">01 / 04</span></span>
   </header>
-  <p class="nojs" id="nojs" role="alert">互動還沒啟動 請用瀏覽器直接打開這個網址</p>
   <main>
 
     <section class="scene active" data-step="1" aria-label="傳票送達">
@@ -298,7 +299,6 @@ svg.dino,svg.cat{display:block;overflow:visible}
 (()=>{
 'use strict';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
-$('#nojs').hidden=true;
 
 const CONFIG={name:'以柔',plaintiff:'Jimmy',place:'十八尖山',reply:'這週末不行 改天再陪你去十八尖山',filename:'恐龍地方法院_判決書.png'};
 const COLORS={ink:'#161614',paper:'#f4f2ec',seal:'#d3452c'};
@@ -444,6 +444,7 @@ addEventListener('pointermove',rub,{passive:true});
 const holdStill=(el,evs)=>evs.forEach(ev=>el.addEventListener(ev,e=>{if(e.cancelable)e.preventDefault()},{passive:false}));
 [$('#pad'),$('#seal')].forEach(el=>holdStill(el,['touchstart','touchmove']));
 redacts.forEach(el=>holdStill(el,['touchmove']));
+document.addEventListener('touchmove',e=>{if((scene===1||scene===4)&&e.cancelable)e.preventDefault()},{passive:false});
 $('#toCourt').addEventListener('click',()=>goto(2));
 
 /* ── 2 開庭：審判長手短，請代敲法槌 ── */
@@ -498,9 +499,12 @@ function drawStrokes(c,x,y,w,h,lw){
   });
 }
 const pt=e=>{const r=pad.getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]};
-pad.addEventListener('pointerdown',e=>{try{pad.setPointerCapture(e.pointerId)}catch(_){}cur=[pt(e)];strokes.push(cur);$('#signBox').classList.add('inked');drawStrokes(pc,0,0,padW,padH,2.4)});
-pad.addEventListener('pointermove',e=>{if(!cur)return;cur.push(pt(e));drawStrokes(pc,0,0,padW,padH,2.4)});
-const penUp=()=>{cur=null};pad.addEventListener('pointerup',penUp);pad.addEventListener('pointercancel',penUp);
+const fingers=new Set();let penId=null;
+pad.addEventListener('pointerdown',e=>{fingers.add(e.pointerId);
+  if(fingers.size>1){if(cur){strokes.pop();cur=null;penId=null;if(!strokes.length)$('#signBox').classList.remove('inked');drawStrokes(pc,0,0,padW,padH,2.4)}return}
+  try{pad.setPointerCapture(e.pointerId)}catch(_){}penId=e.pointerId;cur=[pt(e)];strokes.push(cur);$('#signBox').classList.add('inked');drawStrokes(pc,0,0,padW,padH,2.4)});
+pad.addEventListener('pointermove',e=>{if(!cur||e.pointerId!==penId)return;cur.push(pt(e));drawStrokes(pc,0,0,padW,padH,2.4)});
+const penUp=e=>{fingers.delete(e.pointerId);if(e.pointerId===penId){cur=null;penId=null}};pad.addEventListener('pointerup',penUp);pad.addEventListener('pointercancel',penUp);
 $('#clear').addEventListener('click',()=>{strokes=[];$('#signBox').classList.remove('inked');drawStrokes(pc,0,0,padW,padH,2.4)});
 addEventListener('resize',()=>{if(scene===4&&!$('#signBox').hidden)sizePad()});
 
